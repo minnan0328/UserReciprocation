@@ -1,4 +1,17 @@
-﻿var d = new Date();
+﻿/* 必須載入外部js檔案 
+
+html2canvas - DOM繪畫成png圖檔
+** https://html2canvas.hertzen.com/dist/html2canvas.min.js
+
+bluebird - 補齊IE瀏覽器缺少js
+** https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.4/bluebird.min.js
+
+jquery - 使用AJAX
+** https://code.jquery.com/jquery-3.3.1.min.js
+
+*/
+
+var d = new Date();
 var getYear = d.getFullYear();
 var getMonth = d.getMonth() + 1;
 var getDay = d.getDate();
@@ -80,7 +93,7 @@ const EndParentheses = UserAgent.search(/\)/);
 const OSList = UserAgent.slice(StartParentheses + 1, EndParentheses);
 const OSListLength = OSList.length;
 
-
+/* 當DOM body建立時，將執行function UserListener() */
 function UserListener(TopBarData) {
     OmnicleUserInfo(TopBarData);
     /* body建立時才動作 */
@@ -90,9 +103,6 @@ function UserListener(TopBarData) {
             .then(function (canvas) {
                 var canvas = document.body.appendChild(canvas);
                 UserInfo.PageImgeURL = canvas.toDataURL('image/png', 1);
-                // canvas.toBlob(function (blob) {
-                //     UserInfo.PageImgeURL = blob;
-                // }, 'image/png', 1);
                 // AutoDownloadImgesPNG(); //自動下載
                 UserSystem();
                 RemoveCanvas(canvas);
@@ -103,7 +113,7 @@ function UserListener(TopBarData) {
         UserListener();
     }
 };
-/* 當DOM body建立時，將執行function UserListener() */
+
 /* 存取Omnicle使用者資訊-開始 */
 function OmnicleUserInfo(TopBarData) {
     TopBarData = {
@@ -158,7 +168,7 @@ function UserSystem() {
     } else {
         UserInfo.BrowserInfo.BrowserLanguage = navigator.browserLanguage;
     }
-    /* 判斷瀏覽器 */
+    /* 判斷瀏覽器項目 */
     const macintosh = /macintosh/.test(UserAgent)
     const windows = /windows/.test(UserAgent)
     const chrome = /chrome/.test(UserAgent)
@@ -216,21 +226,6 @@ function UserSystem() {
 };
 /* 使用者資訊取得-結束 */
 
-/* 自動下載截圖頁面圖檔-開始 */
-//日期時間_聯經數位_姓名_員工編號
-//data + '_' + UserInfo.Department + '_' + UserInfo.EmployeeName + '_' + UserInfo.EmployeeID
-// function AutoDownloadImgesPNG() {
-//     var AutoDownloadImges = document.createElement('a');
-//     AutoDownloadImges.id = 'AutoDownload';
-//     console.log(UserInfo.PageImgeURL)
-//     // var a = document.getElementById('url');
-//     AutoDownloadImges.href = UserInfo.PageImgeURL;
-//     var DownloadName = data + '_' + UserInfo.Department + '_' + UserInfo.EmployeeName + '_' + UserInfo.EmployeeID
-//     AutoDownloadImges.download = DownloadName + '.png'
-//     AutoDownloadImges.click();
-// }
-/* 自動下載截圖頁面圖檔-結束 */
-
 /* 創建回報視窗-開始 */
 function UserReciprocation() {
     document.getElementsByTagName('body')[0].style.overflow = 'hidden';
@@ -260,7 +255,7 @@ function UserReciprocation() {
 }
 /* 創建回報視窗-結束 */
 
-//定義輸入字數限制條件-開始
+/* 定義輸入字數限制條件-開始 */
 const MinCharacter = 9;
 const MaxCharacter = 500;
 
@@ -283,7 +278,7 @@ function TextareaContent() {
         ErrorMessage(messages);
     } else {
         UserInfo.UserReciprocationContent = document.getElementById('myTextarea').value;
-        // POSTUserInfo();
+        POSTUserInfo(); //post至後端資料庫
     }
 }
 /* 判斷輸入字數是否符合條件，並送出訊息-結束 */
@@ -296,7 +291,7 @@ url:/api/ProblemReciprocation
     'IsSuccess': true,
     'Message': null
 }
-所以要查證有無成功就看這個，Result為ID
+查證有無成功，Result為ID
 http://10.20.51.151:5000/api/UserReciprocation/{ID}
 */
 function POSTUserInfo() {
@@ -312,11 +307,11 @@ function POSTUserInfo() {
                     RemoveURCard();
                     ImportantMessage(Title, Msg);
                     var ID = result.Result
-                    var JsonUrl = 'http://10.20.51.151:5000/api/UserReciprocation/' + ID;
+                    var JsonUrl = `http://10.20.51.151:5000/api/UserReciprocation/${ID}`;
                     console.log(JsonUrl);
                 } else if (result.IsSuccess === false) {
                     var Title = '發生錯誤:';
-                    var Msg = result.Message + '。';
+                    var Msg = `${result.Message}。`;
                     ImportantMessage(Title, Msg);
                     console.log('ERROR:', result.Message);
                 }
