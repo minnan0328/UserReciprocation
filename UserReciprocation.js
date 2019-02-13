@@ -11,18 +11,7 @@ jquery - 使用AJAX
 
 */
 
-var d = new Date();
-var getYear = d.getFullYear();
-var getMonth = d.getMonth() + 1;
-var getDay = d.getDate();
-var getHours = d.getHours();
-var getMinutes = d.getMinutes();
-var getSeconds = d.getSeconds();
-var data = `${getYear}''${getMonth}''${getDay}''${getHours}''${getMinutes}''${getSeconds}`;
-// var time = `${getHours}:${getMinutes}:${getSeconds}`;
-
 //使用者資訊變數存取
-var UserAgent = navigator.userAgent.toLowerCase();
 var UserInfo = {
     EmployeeName: '', //員工姓名
     EmployeeID: '', //員工編號
@@ -71,28 +60,6 @@ var UserInfo = {
 
 };
 
-/* 取得瀏覽器版本 */ 
-const Chrome = 'chrome/';
-const Safari = 'safari/';
-const Edge = 'edge/';
-const Firefox = 'firefox/';
-/* 取得字串總長度 */
-const UserAgentLength = UserAgent.length;
-const ChromeLength = Chrome.length;
-const SafariLength = Safari.length;
-const EdgeLength = Edge.length;
-const FirefoxLength = Firefox.length;
-/* 取得字串位置 */
-const ChromeSearch = UserAgent.search(Chrome);
-const SafariSearch = UserAgent.search(Safari);
-const EdgeSearch = UserAgent.search(Edge);
-const FirefoxSearch = UserAgent.search(Firefox);
-/* 判斷括號，去取得括號裡的資訊 */
-const StartParentheses = UserAgent.search(/\(/);
-const EndParentheses = UserAgent.search(/\)/);
-const OSList = UserAgent.slice(StartParentheses + 1, EndParentheses);
-const OSListLength = OSList.length;
-
 /* 當DOM body建立時，將執行function UserListener() */
 function UserListener(TopBarData) {
     OmnicleUserInfo(TopBarData);
@@ -114,7 +81,7 @@ function UserListener(TopBarData) {
     }
 };
 
-/* 存取Omnicle使用者資訊-開始 */
+/* 存取Omnicle使用者資訊-開始，因系統使用資訊不同需個別設定 */
 function OmnicleUserInfo(TopBarData) {
     TopBarData = {
         user: {
@@ -141,6 +108,38 @@ function OmnicleUserInfo(TopBarData) {
 
 /* 使用者資訊取得-開始 */
 function UserSystem() {
+    var UserAgent = navigator.userAgent.toLowerCase();
+    /* 取得瀏覽器版本 */
+
+    const Chrome = 'chrome/';
+    const Safari = 'safari/';
+    const Edge = 'edge/';
+    const Firefox = 'firefox/';
+    /* 取得字串總長度 */
+    const UserAgentLength = UserAgent.length;
+    const ChromeLength = Chrome.length;
+    const SafariLength = Safari.length;
+    const EdgeLength = Edge.length;
+    const FirefoxLength = Firefox.length;
+    /* 取得字串位置 */
+    const ChromeSearch = UserAgent.search(Chrome);
+    const SafariSearch = UserAgent.search(Safari);
+    const EdgeSearch = UserAgent.search(Edge);
+    const FirefoxSearch = UserAgent.search(Firefox);
+    /* 判斷括號，去取得括號裡的資訊 */
+    const StartParentheses = UserAgent.search(/\(/);
+    const EndParentheses = UserAgent.search(/\)/);
+    const OSList = UserAgent.slice(StartParentheses + 1, EndParentheses);
+    const OSListLength = OSList.length;
+    /* 判斷瀏覽器項目 */
+    const macintosh = /macintosh/.test(UserAgent)
+    const windows = /windows/.test(UserAgent)
+    const chrome = /chrome/.test(UserAgent)
+    const safari = /safari/.test(UserAgent)
+    const version = /version/.test(UserAgent)
+    const edge = /edge/.test(UserAgent)
+    const firefox = /firefox/.test(UserAgent)
+
     //使用者螢幕解析度
     UserInfo.ScreenInfo.ScreenDPI = window.screen.width + '*' + window.screen.height;
     //瀏覽頁面解析度
@@ -168,14 +167,6 @@ function UserSystem() {
     } else {
         UserInfo.BrowserInfo.BrowserLanguage = navigator.browserLanguage;
     }
-    /* 判斷瀏覽器項目 */
-    const macintosh = /macintosh/.test(UserAgent)
-    const windows = /windows/.test(UserAgent)
-    const chrome = /chrome/.test(UserAgent)
-    const safari = /safari/.test(UserAgent)
-    const version = /version/.test(UserAgent)
-    const edge = /edge/.test(UserAgent)
-    const firefox = /firefox/.test(UserAgent)
 
     /*作業系統判斷 */
     if (macintosh === true) {
@@ -192,28 +183,28 @@ function UserSystem() {
     /* 瀏覽器判斷-開始 */
     if (chrome === true && safari === true && version === false && edge === false && firefox === false) {
         UserInfo.BrowserInfo.Browser = 'Chrome';
-        if (ChromeSearch > 0) {
+        if (ChromeSearch > 0) { //取得瀏覽器版本
             UserInfo.BrowserInfo.BrowserVersion = UserAgent.slice(ChromeSearch + ChromeLength, SafariSearch).trim();
         } else {
             UserInfo.BrowserInfo.BrowserVersion = '';
         }
     } else if (version === true && safari === true && chrome === false && edge === false && firefox === false) {
         UserInfo.BrowserInfo.Browser = 'Safire';
-        if (SafariSearch > 0) {
+        if (SafariSearch > 0) { //取得瀏覽器版本
             UserInfo.BrowserInfo.BrowserVersion = UserAgent.slice(SafariSearch + SafariLength, UserAgentLength).trim();
         } else {
             UserInfo.BrowserInfo.BrowserVersion = '';
         }
     } else if (chrome === true && safari === true && edge === true && version === false && firefox === false) {
         UserInfo.BrowserInfo.Browser = 'Edge';
-        if (EdgeSearch > 0) {
+        if (EdgeSearch > 0) { //取得瀏覽器版本
             UserInfo.BrowserInfo.BrowserVersion = UserAgent.slice(EdgeSearch + EdgeLength, UserAgentLength).trim();
         } else {
             UserInfo.BrowserInfo.BrowserVersion = '';
         }
     } else if (firefox === true && chrome === false && safari === true && version === false && edge === false) {
         UserInfo.BrowserInfo.Browser = 'Firefox';
-        if (FirefoxSearch > 0) {
+        if (FirefoxSearch > 0) { //取得瀏覽器版本
             UserInfo.BrowserInfo.BrowserVersion = UserAgent.slice(FirefoxSearch + FirefoxLength, UserAgentLength).trim();
         } else {
             UserInfo.BrowserInfo.BrowserVersion = '';
