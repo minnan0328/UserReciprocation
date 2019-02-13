@@ -1,0 +1,142 @@
+button {
+    outline: none !important;
+    background-color: #F0F0F0;
+    color: #292421;
+    border: 1px solid #292421;
+    border-radius: 2px;
+    font-size: 16px;
+    height: 30px
+}
+
+button:hover {
+    background-color: #292421;
+    border: 1px solid #292421;
+    color: #F0F0F0
+}
+
+button:active {
+    background-color: #686868;
+    border: 1px solid #686868
+}
+
+#MagCard {
+    position: absolute;
+    top: 0;
+    margin: 0 0;
+    padding: 0;
+    border: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}
+
+#MagCard #magbox {
+    width: 20vw;
+    /* height: 20vh; */
+    margin: 40vh 40vw;
+    text-align: center;
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0px 0px 20px 1px #000
+}
+
+#MagCard #magbox h1 {
+    width: 80%;
+    text-align: left;
+    font-size: 16px;
+    margin: 20px auto 5px; 
+}
+#MagCard #magbox p {
+    width: 80%;
+    text-align: left;
+    font-size: 12px;
+    margin: 10px auto;
+}
+
+#MagCard #magbox button {
+    width: 50%;
+    margin: 20px 5% 10px
+}
+
+#URCard {
+    position: absolute;
+    top: 0;
+    margin: 0 0;
+    padding: 0;
+    border: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000
+}
+
+#URCard #Cardbox {
+    background-color: #F0F0F0;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+    width: 70vw;
+    height: 40vh;
+    margin: 30vh 15vw;
+    box-shadow: 0px 0px 20px 1px #000
+}
+
+#URCard #Cardbox #UserInfo {
+    width: 100%;
+    height: 40vh;
+    overflow-y: auto;
+    text-align: center
+}
+
+#URCard #Cardbox #UserInfo h1 {
+    display: inline-block;
+    width: 100%;
+    color: #292421;
+    font-size: 28px;
+    margin-bottom: 20px
+}
+
+#URCard #Cardbox #UserInfo #ReciprocationMessage {
+    width: 80%;
+    margin-top: 20px;
+    display: inline-block
+}
+
+#URCard #Cardbox #UserInfo #ReciprocationMessage a {
+    float: right;
+    font-size: 10px;
+    color: #cccccc
+}
+
+#URCard #Cardbox #UserInfo #ReciprocationMessage label {
+    width: 100%;
+    text-align: left;
+    float: left;
+    color: #292421;
+    font-size: 18px
+}
+
+#URCard #Cardbox #UserInfo #ReciprocationMessage label span {
+    color: #FF0000;
+    font-size: 12px
+}
+
+#URCard #Cardbox #UserInfo #ReciprocationMessage textarea {
+    width: 100%;
+    height: 100px;
+    background-color: #F0F0F0;
+    border: 1px solid #202020;
+    border-radius: 2px;
+    resize: none;
+    color: #000000;
+    font-size: 16px
+}
+
+#URCard #Cardbox #UserInfo #submit {
+    width: 80%;
+    display: inline-block
+}
+
+#URCard #Cardbox #UserInfo #submit button {
+    width: 40%;
+    margin: 20px 5% 10px
+}
