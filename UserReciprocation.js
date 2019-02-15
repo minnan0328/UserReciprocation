@@ -83,15 +83,7 @@ function UserListener(TopBarData) {
 
 /* 存取Omnicle使用者資訊-開始，因系統使用資訊不同需個別設定 */
 function OmnicleUserInfo(TopBarData) {
-    TopBarData = {
-        user: {
-            name: '聯經測試',
-            email: 'und@undgroup.com',
-            employeeId: '1',
-            defaultDepartmentId: '2'
-        },
-        selectedJobRole: '聯經經理'
-    }
+
     if (TopBarData.user.defaultDepartmentId === null) {
         UserInfo.OmnicleInfo.DepartmentId = null;
     } else {
